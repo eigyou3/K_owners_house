@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新居完成のご案内</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sand:   #f2ede5;
+  --linen:  #e8e0d4;
+  --bark:   #6b5a47;
+  --smoke:  #2c2925;
+  --mid:    #5a5550;
+  --mist:   #8c8680;
+  --door:   #7ab3b8;
+  --cream:  #f9f6f1;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--smoke);
+  font-family: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+  font-size: 15px;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .22s; }
+.reveal-delay-3 { transition-delay: .34s; }
+.reveal-delay-4 { transition-delay: .46s; }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%; height: 100svh; min-height: 600px;
+  overflow: hidden;
+  background: var(--smoke);
+}
+.hero-slide {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.4s ease, transform 6s ease;
+}
+.hero-slide.active { opacity: 1; transform: scale(1); }
+
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(44,41,37,.2) 0%, rgba(44,41,37,.65) 100%);
+}
+.hero-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8vw 72px;
+}
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(9px, 1.1vw, 12px);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 16px;
+  animation: fadeUp .9s .3s both;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 7vw, 80px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 20px;
+  animation: fadeUp .9s .5s both;
+}
+.hero-jp {
+  font-size: clamp(12px, 1.4vw, 16px);
+  letter-spacing: .3em;
+  color: rgba(255,255,255,.7);
+  animation: fadeUp .9s .7s both;
+}
+.hero-bar {
+  width: 40px; height: 2px;
+  background: var(--door);
+  margin-top: 28px;
+  animation: fadeUp .9s .9s both;
+}
+.hero-scroll {
+  position: absolute; bottom: 24px; right: 8vw;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.4);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  animation: fadeIn 1s 1.2s both;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px; height: 48px;
+  background: rgba(255,255,255,.3);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity:.2; transform: scaleY(.4); transform-origin: top; }
+  50%      { opacity:.8; transform: scaleY(1); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(24px); }
+  to   { opacity:1; transform: none; }
+}
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+
+/* ══════════════════════════════
+   MESSAGE
+══════════════════════════════ */
+.sec-message {
+  padding: 100px 8vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1100px; margin: 0 auto;
+}
+.msg-left {}
+.msg-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--mist);
+  margin-bottom: 20px;
+}
+.msg-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300; font-style: italic;
+  line-height: 1.35; color: var(--smoke);
+  margin-bottom: 24px;
+}
+.msg-jp {
+  font-size: clamp(13px, 1.3vw, 15px);
+  color: var(--mid); line-height: 2.2;
+}
+.msg-right {
+  position: relative;
+}
+.msg-photo {
+  width: 100%; aspect-ratio: 3/4;
+  object-fit: cover;
+}
+.msg-deco {
+  position: absolute;
+  bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  border: 1px solid var(--linen);
+  z-index: -1;
+}
+
+/* ══════════════════════════════
+   BEFORE / AFTER FLIP CARDS
+══════════════════════════════ */
+.sec-flip {
+  padding: 100px 8vw;
+  background: var(--sand);
+}
+.flip-header {
+  max-width: 1000px; margin: 0 auto 56px; text-align: center;
+}
+.flip-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--mist);
+  margin-bottom: 14px;
+}
+.flip-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-weight: 300; font-style: italic;
+  color: var(--smoke);
+  margin-bottom: 12px;
+}
+.flip-sub { font-size: 13px; color: var(--mist); letter-spacing: .1em; }
+
+.flip-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.flip-card-wrap {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  transform-style: preserve-3d;
+  transition: transform .9s cubic-bezier(.22,1,.36,1);
+  cursor: pointer;
+}
+.flip-card-wrap:hover .flip-card-inner,
+.flip-card-wrap.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+.flip-front img, .flip-back img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.flip-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 36px 20px 18px;
+  background: linear-gradient(to top, rgba(44,41,37,.75) 0%, transparent 100%);
+  color: #fff;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.flip-label-name {
+  font-size: 13px; letter-spacing: .15em;
+}
+.flip-label-badge {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.5);
+  padding: 4px 10px;
+  color: rgba(255,255,255,.8);
+}
+.flip-hint {
+  text-align: center; margin-top: 20px;
+  font-size: 11px; letter-spacing: .2em; color: var(--mist);
+  font-family: 'Cormorant Garamond', serif; text-transform: uppercase;
+}
+
+/* ══════════════════════════════
+   FEATURES
+══════════════════════════════ */
+.sec-features {
+  padding: 100px 8vw;
+  background: #fff;
+}
+.features-header {
+  max-width: 1000px; margin: 0 auto 56px; text-align: center;
+}
+.feat-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--mist); margin-bottom: 14px;
+}
+.feat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-weight: 300; font-style: italic; color: var(--smoke);
+}
+.feat-grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2px;
+}
+.feat-card {
+  background: var(--sand);
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.feat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--door);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.22,1,.36,1);
+}
+.feat-card:hover::before { transform: scaleX(1); }
+.feat-card:hover { background: #fff; }
+.feat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 300;
+  color: var(--linen); line-height: 1;
+  margin-bottom: 16px;
+}
+.feat-name { font-size: 14px; font-weight: 500; letter-spacing: .1em; margin-bottom: 10px; }
+.feat-desc { font-size: 12px; color: var(--mist); line-height: 1.9; }
+
+/* ══════════════════════════════
+   INVITE
+══════════════════════════════ */
+.sec-invite {
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 100px 8vw;
+  background: var(--smoke);
+}
+.invite-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .18;
+}
+.invite-inner {
+  position: relative; z-index: 1;
+  text-align: center; max-width: 560px;
+}
+.invite-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px; letter-spacing: .4em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 20px;
+}
+.invite-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 300; font-style: italic;
+  color: #fff; line-height: 1.25; margin-bottom: 32px;
+}
+.invite-box {
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 40px 56px;
+  margin-bottom: 28px;
+}
+.invite-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 300; letter-spacing: .1em; color: #fff;
+  margin-bottom: 8px;
+}
+.invite-time { font-size: 14px; color: rgba(255,255,255,.55); letter-spacing: .15em; margin-bottom: 20px; }
+.invite-divider { width: 32px; height: 1px; background: var(--door); margin: 0 auto 20px; }
+.invite-place { font-size: 13px; color: rgba(255,255,255,.5); line-height: 2; letter-spacing: .08em; }
+.invite-note { font-size: 11px; color: rgba(255,255,255,.25); letter-spacing: .1em; }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer {
+  padding: 32px 8vw;
+  background: var(--smoke);
+  border-top: 1px solid rgba(255,255,255,.07);
+  text-align: center;
+  font-size: 11px; letter-spacing: .1em;
+  color: rgba(255,255,255,.2);
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 700px) {
+  .sec-message { grid-template-columns: 1fr; gap: 36px; }
+  .msg-right { display: none; }
+  .flip-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .invite-box { padding: 28px 24px; }
+  .sec-message, .sec-flip, .sec-features, .sec-invite { padding: 72px 5vw; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <img class="hero-slide active" src="gaikan.JPG"  alt="外観">
+  <img class="hero-slide"        src="gaikan1.JPG" alt="外観2">
+  <img class="hero-slide"        src="cut.JPG"     alt="玄関">
+  <img class="hero-slide"        src="living.jpg"  alt="リビング">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Owners House · Private Invitation</p>
+    <h1 class="hero-title">Komai<br>home.</h1>
+    <p class="hero-jp">完成見学のご案内</p>
+    <div class="hero-bar"></div>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</header>
+
+<!-- ══ MESSAGE ══ -->
+<section class="sec-message">
+  <div class="msg-left">
+    <p class="msg-tag reveal">Message</p>
+    <h2 class="msg-title reveal reveal-delay-1">Thank you<br>for everything.</h2>
+    <p class="msg-jp reveal reveal-delay-2">
+      このたび、素敵なお家が完成しました。<br>
+      1Fは美容室、<br>
+      2Fは住宅の併用住宅でございます。<br><br>
+      ぜひお越しいただき<br>
+      完成した家をご覧いただきたく<br>
+      ご招待申し上げます。<br><br>
+      わずかなお時間をいただけますと<br>
+      幸いです。
+    </p>
+  </div>
+  <div class="msg-right reveal reveal-delay-2">
+    <img class="msg-photo" src="cut1.JPG" alt="玄関">
+    <div class="msg-deco"></div>
+  </div>
+</section>
+
+<!-- ══ PHOTO GALLERY FLIP ══ -->
+<section class="sec-flip">
+  <div class="flip-header">
+    <p class="flip-tag reveal">Gallery</p>
+    <h2 class="flip-title reveal reveal-delay-1">完成写真</h2>
+    <p class="flip-sub reveal reveal-delay-2">完成前後のお写真をご覧ください</p>
+  </div>
+  <div class="flip-grid">
+
+    <!-- 外観 -->
+    <div class="flip-card-wrap reveal">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="gaikan.JPG" alt="外観">
+          <div class="flip-label">
+            <span class="flip-label-name">外観</span>
+            <span class="flip-label-badge">Exterior</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="gaikan2.JPG" alt="外観2">
+          <div class="flip-label">
+            <span class="flip-label-name">外観</span>
+            <span class="flip-label-badge">Exterior</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 玄関 -->
+    <div class="flip-card-wrap reveal reveal-delay-1">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="cut.JPG" alt="玄関">
+          <div class="flip-label">
+            <span class="flip-label-name">玄関</span>
+            <span class="flip-label-badge">Entrance</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="cut1.JPG" alt="玄関2">
+          <div class="flip-label">
+            <span class="flip-label-name">玄関</span>
+            <span class="flip-label-badge">Entrance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 美容室（照明オフ→オン） -->
+    <div class="flip-card-wrap reveal reveal-delay-2">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="cut4.JPG" alt="美容室（照明オフ）">
+          <div class="flip-label">
+            <span class="flip-label-name">美容室</span>
+            <span class="flip-label-badge">Light off</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="cut3.JPG" alt="美容室（照明オン）">
+          <div class="flip-label">
+            <span class="flip-label-name">美容室</span>
+            <span class="flip-label-badge">Light on</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 階段 ビフォーアフター -->
+    <div class="flip-card-wrap reveal reveal-delay-1">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="kaidan_a.jpg" alt="階段">
+          <div class="flip-label">
+            <span class="flip-label-name">階段</span>
+            <span class="flip-label-badge">After</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="kaidan_b.JPG" alt="階段">
+          <div class="flip-label">
+            <span class="flip-label-name">階段</span>
+            <span class="flip-label-badge">Before</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- リビング -->
+    <div class="flip-card-wrap reveal reveal-delay-2">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="living_a.jpg" alt="リビング">
+          <div class="flip-label">
+            <span class="flip-label-name">リビング</span>
+            <span class="flip-label-badge">After</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="living_b.jpg" alt="リビング">
+          <div class="flip-label">
+            <span class="flip-label-name">リビング</span>
+            <span class="flip-label-badge">Before</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 外観3 -->
+    <div class="flip-card-wrap reveal reveal-delay-3">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <img src="gaikan.JPG" alt="外観3">
+          <div class="flip-label">
+            <span class="flip-label-name">外観</span>
+            <span class="flip-label-badge">Exterior</span>
+          </div>
+        </div>
+        <div class="flip-back">
+          <img src="gaikan3.JPG" alt="外観4">
+          <div class="flip-label">
+            <span class="flip-label-name">外観</span>
+            <span class="flip-label-badge">Exterior</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <p class="flip-hint reveal">hover or tap to flip</p>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="sec-features">
+  <div class="features-header">
+    <p class="feat-tag reveal">Design Points</p>
+    <h2 class="feat-title reveal reveal-delay-1">こだわりのポイント</h2>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card reveal">
+      <div class="feat-num">01</div>
+      <div class="feat-name">キューブフォルム</div>
+      <p class="feat-desc">グレーの外壁とフラットな屋根ラインで、すっきりとしたモダンな佇まい</p>
+    </div>
+    <div class="feat-card reveal reveal-delay-1">
+      <div class="feat-num">02</div>
+      <div class="feat-name">ターコイズの玄関ドア</div>
+      <p class="feat-desc">天然木のポーチとのコントラストが印象的なアクセントカラー</p>
+    </div>
+    <div class="feat-card reveal reveal-delay-2">
+      <div class="feat-num">03</div>
+      <div class="feat-name">2階LDK・3連窓</div>
+      <p class="feat-desc">高い位置に設けた3連窓から明るい光を取り込む開放的な空間</p>
+    </div>
+    <div class="feat-card reveal reveal-delay-3">
+      <div class="feat-num">04</div>
+      <div class="feat-name">造作フロートデスク</div>
+      <p class="feat-desc">壁一体型の浮いたデスクで、生活感を出さないすっきりした室内</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INVITE ══ -->
+<section class="sec-invite">
+  <img class="invite-bg" src="living.jpg" alt="">
+  <div class="invite-inner">
+    <p class="invite-tag reveal">Open House</p>
+    <h2 class="invite-title reveal reveal-delay-1">見学会の<br>ご案内</h2>
+    <div class="invite-box reveal reveal-delay-2">
+      <div class="invite-date">2026年5月16日（土）～ 24日（日）</div>
+      <div class="invite-time">10:00 〜 17:00</div>
+      <div class="invite-divider"></div>
+      <div class="invite-place">
+        旭川市豊岡５条５丁目３−４<br>
+        ご来場の際はご一報ください
+      </div>
+    </div>
+    <p class="invite-note reveal reveal-delay-3">※ ご招待いただいた方限定の会となります</p>
+  </div>
+</section>
+
+<footer>
+  <p>本ページはご招待者様限定の非公開ページです</p>
+</footer>
+
+<script>
+// ── Hero slideshow ──
+const slides = document.querySelectorAll('.hero-slide');
+let cur = 0;
+setInterval(() => {
+  slides[cur].classList.remove('active');
+  cur = (cur + 1) % slides.length;
+  slides[cur].classList.add('active');
+}, 5000);
+
+// ── Scroll reveal ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Flip cards: tap on mobile ──
+document.querySelectorAll('.flip-card-wrap').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('flipped'));
+});
+</script>
+</body>
+</html>
