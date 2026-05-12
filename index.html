@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>新居完成のご案内</title>
+<title>新築完成見学のご案内</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -255,6 +255,80 @@ body {
 }
 
 /* ══════════════════════════════
+   MODAL
+══════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(20,18,16,.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s ease;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal-inner {
+  position: relative;
+  width: min(92vw, 1000px);
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+
+/* 2枚並び */
+.modal-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.modal-photo-wrap {
+  position: relative; overflow: hidden;
+}
+.modal-photo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  max-height: 70vh;
+  transition: transform .4s ease;
+}
+.modal-photo-wrap:hover img { transform: scale(1.03); }
+.modal-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px 16px 12px;
+  background: linear-gradient(to top, rgba(20,18,16,.7), transparent);
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.modal-caption-name {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 12px; letter-spacing: .15em; color: #fff;
+}
+.modal-caption-badge {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.45);
+  padding: 3px 9px; color: rgba(255,255,255,.75);
+}
+
+.modal-close {
+  position: absolute; top: -44px; right: 0;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,.5);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+  transition: color .2s;
+}
+.modal-close:hover { color: #fff; }
+.modal-close::before {
+  content: '✕'; font-size: 14px;
+}
+
+/* single-photo fallback (同じ画像の場合など) */
+.modal-photos.single { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+
+@media (max-width: 600px) {
+  .modal-photos { grid-template-columns: 1fr; }
+  .modal-photo-wrap img { max-height: 50vh; }
+}
+
+/* ══════════════════════════════
    FEATURES
 ══════════════════════════════ */
 .sec-features {
@@ -381,10 +455,11 @@ footer {
 
 <!-- ══ HERO ══ -->
 <header class="hero">
-  <img class="hero-slide active" src="gaikan.JPG"  alt="外観">
-  <img class="hero-slide"        src="gaikan1.JPG" alt="外観2">
-  <img class="hero-slide"        src="cut.JPG"     alt="玄関">
-  <img class="hero-slide"        src="living.jpg"  alt="リビング">
+  <img class="hero-slide active" src="gaikan_a.jpg"    alt="外観">
+  <img class="hero-slide"        src="living_a.jpg"    alt="リビング">
+  <img class="hero-slide"        src="kaidan_a.JPG"    alt="階段">
+  <img class="hero-slide"        src="entrance_b.JPG"  alt="玄関">
+  <img class="hero-slide"        src="entrance_a.JPG"  alt="玄関">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-eyebrow">Owners House · Private Invitation</p>
@@ -412,7 +487,7 @@ footer {
     </p>
   </div>
   <div class="msg-right reveal reveal-delay-2">
-    <img class="msg-photo" src="cut1.JPG" alt="玄関">
+    <img class="msg-photo" src="karuki-tei.jpg" alt="外観">
     <div class="msg-deco"></div>
   </div>
 </section>
@@ -430,17 +505,17 @@ footer {
     <div class="flip-card-wrap reveal">
       <div class="flip-card-inner">
         <div class="flip-front">
-          <img src="gaikan.JPG" alt="外観">
+          <img src="gaikan_a.jpg" alt="外観">
           <div class="flip-label">
             <span class="flip-label-name">外観</span>
-            <span class="flip-label-badge">Exterior</span>
+            <span class="flip-label-badge">After</span>
           </div>
         </div>
         <div class="flip-back">
-          <img src="gaikan2.JPG" alt="外観2">
+          <img src="gaikan_b.jpg" alt="外観">
           <div class="flip-label">
             <span class="flip-label-name">外観</span>
-            <span class="flip-label-badge">Exterior</span>
+            <span class="flip-label-badge">Before</span>
           </div>
         </div>
       </div>
@@ -450,17 +525,17 @@ footer {
     <div class="flip-card-wrap reveal reveal-delay-1">
       <div class="flip-card-inner">
         <div class="flip-front">
-          <img src="cut.JPG" alt="玄関">
+          <img src="entrance_a.JPG" alt="玄関">
           <div class="flip-label">
             <span class="flip-label-name">玄関</span>
-            <span class="flip-label-badge">Entrance</span>
+            <span class="flip-label-badge">After</span>
           </div>
         </div>
         <div class="flip-back">
-          <img src="cut1.JPG" alt="玄関2">
+          <img src="entrance_b.jpg" alt="玄関">
           <div class="flip-label">
             <span class="flip-label-name">玄関</span>
-            <span class="flip-label-badge">Entrance</span>
+            <span class="flip-label-badge">Before</span>
           </div>
         </div>
       </div>
@@ -470,14 +545,14 @@ footer {
     <div class="flip-card-wrap reveal reveal-delay-2">
       <div class="flip-card-inner">
         <div class="flip-front">
-          <img src="cut4.JPG" alt="美容室（照明オフ）">
+          <img src="cut_light_off.JPG" alt="美容室（照明オフ）">
           <div class="flip-label">
             <span class="flip-label-name">美容室</span>
             <span class="flip-label-badge">Light off</span>
           </div>
         </div>
         <div class="flip-back">
-          <img src="cut3.JPG" alt="美容室（照明オン）">
+          <img src="cut_light_on.JPG" alt="美容室（照明オン）">
           <div class="flip-label">
             <span class="flip-label-name">美容室</span>
             <span class="flip-label-badge">Light on</span>
@@ -526,21 +601,21 @@ footer {
       </div>
     </div>
 
-    <!-- 外観3 -->
+    <!-- 美容室 -->
     <div class="flip-card-wrap reveal reveal-delay-3">
       <div class="flip-card-inner">
         <div class="flip-front">
-          <img src="gaikan.JPG" alt="外観3">
+          <img src="cut_a.JPG" alt="美容室">
           <div class="flip-label">
-            <span class="flip-label-name">外観</span>
-            <span class="flip-label-badge">Exterior</span>
+            <span class="flip-label-name">美容室</span>
+            <span class="flip-label-badge">After</span>
           </div>
         </div>
         <div class="flip-back">
-          <img src="gaikan3.JPG" alt="外観4">
+          <img src="cut_b.jpg" alt="美容室">
           <div class="flip-label">
-            <span class="flip-label-name">外観</span>
-            <span class="flip-label-badge">Exterior</span>
+            <span class="flip-label-name">美容室</span>
+            <span class="flip-label-badge">Before</span>
           </div>
         </div>
       </div>
@@ -559,45 +634,59 @@ footer {
   <div class="feat-grid">
     <div class="feat-card reveal">
       <div class="feat-num">01</div>
-      <div class="feat-name">キューブフォルム</div>
-      <p class="feat-desc">グレーの外壁とフラットな屋根ラインで、すっきりとしたモダンな佇まい</p>
+      <div class="feat-name">キュービックなフォルム</div>
+      <p class="feat-desc">ライトグレーの外壁とフラットな屋根ラインで、<br>すっきりとした佇まい。</p>
     </div>
     <div class="feat-card reveal reveal-delay-1">
       <div class="feat-num">02</div>
-      <div class="feat-name">ターコイズの玄関ドア</div>
-      <p class="feat-desc">天然木のポーチとのコントラストが印象的なアクセントカラー</p>
+      <div class="feat-name">玄関ドア</div>
+      <p class="feat-desc">木彫のサイディングを使用したアイコニックな美容室側のポーチ。<br>玄関ドアはターコイズブルーに即決でした。</p>
     </div>
     <div class="feat-card reveal reveal-delay-2">
       <div class="feat-num">03</div>
-      <div class="feat-name">2階LDK・3連窓</div>
-      <p class="feat-desc">高い位置に設けた3連窓から明るい光を取り込む開放的な空間</p>
+      <div class="feat-name">2階LDK</div>
+      <p class="feat-desc">南側隣地は平屋だったので3連窓からたっぷりと明るい光を取り込む開放的な空間をつくりました。</p>
     </div>
     <div class="feat-card reveal reveal-delay-3">
       <div class="feat-num">04</div>
-      <div class="feat-name">造作フロートデスク</div>
-      <p class="feat-desc">壁一体型の浮いたデスクで、生活感を出さないすっきりした室内</p>
+      <div class="feat-name">美容室</div>
+      <p class="feat-desc">壁一体型の浮いたカウンター。<br>カットスペースを増設した際にも対応できる広さは、打合せ中に計画しました。</p>
     </div>
   </div>
 </section>
 
 <!-- ══ INVITE ══ -->
 <section class="sec-invite">
-  <img class="invite-bg" src="living.jpg" alt="">
+  <img class="invite-bg" src="entrance_aa.JPG" alt="">
   <div class="invite-inner">
     <p class="invite-tag reveal">Open House</p>
-    <h2 class="invite-title reveal reveal-delay-1">見学会の<br>ご案内</h2>
+    <h2 class="invite-title reveal reveal-delay-1">ご案内</h2>
     <div class="invite-box reveal reveal-delay-2">
-      <div class="invite-date">2026年5月16日（土）～ 24日（日）</div>
-      <div class="invite-time">10:00 〜 17:00</div>
+      <div class="invite-time">
+        2026年5月16日（土）<br>
+        2026年5月17日（日）<br>
+        2026年5月23日（土）<br>
+        2026年5月24日（日）</div>
+      <div class="invite-date">10:00 〜 17:00</div>
       <div class="invite-divider"></div>
       <div class="invite-place">
         旭川市豊岡５条５丁目３−４<br>
         ご来場の際はご一報ください
       </div>
     </div>
-    <p class="invite-note reveal reveal-delay-3">※ ご招待いただいた方限定の会となります</p>
+    <p class="invite-note reveal reveal-delay-3">※ご招待しました方のみの公開となっております。</p>
   </div>
 </section>
+
+<!-- ══ MODAL ══ -->
+<div class="modal-overlay" id="photoModal">
+  <div class="modal-inner">
+    <button class="modal-close" id="modalClose">close</button>
+    <div class="modal-photos" id="modalPhotos">
+      <!-- JSで動的に挿入 -->
+    </div>
+  </div>
+</div>
 
 <footer>
   <p>本ページはご招待者様限定の非公開ページです</p>
@@ -619,9 +708,53 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── Flip cards: tap on mobile ──
+// ── Modal ──
+const modal      = document.getElementById('photoModal');
+const modalClose = document.getElementById('modalClose');
+const modalPhotos = document.getElementById('modalPhotos');
+
+function openModal(frontSrc, frontLabel, frontBadge, backSrc, backLabel, backBadge) {
+  modalPhotos.innerHTML = `
+    <div class="modal-photo-wrap">
+      <img src="${frontSrc}" alt="${frontLabel}">
+      <div class="modal-caption">
+        <span class="modal-caption-name">${frontLabel}</span>
+        <span class="modal-caption-badge">${frontBadge}</span>
+      </div>
+    </div>
+    <div class="modal-photo-wrap">
+      <img src="${backSrc}" alt="${backLabel}">
+      <div class="modal-caption">
+        <span class="modal-caption-name">${backLabel}</span>
+        <span class="modal-caption-badge">${backBadge}</span>
+      </div>
+    </div>`;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Flip cards: click → open modal ──
 document.querySelectorAll('.flip-card-wrap').forEach(card => {
-  card.addEventListener('click', () => card.classList.toggle('flipped'));
+  card.addEventListener('click', () => {
+    const front = card.querySelector('.flip-front');
+    const back  = card.querySelector('.flip-back');
+    const fImg   = front.querySelector('img');
+    const bImg   = back.querySelector('img');
+    const fName  = front.querySelector('.flip-label-name')?.textContent || '';
+    const fBadge = front.querySelector('.flip-label-badge')?.textContent || '';
+    const bName  = back.querySelector('.flip-label-name')?.textContent || '';
+    const bBadge = back.querySelector('.flip-label-badge')?.textContent || '';
+    openModal(fImg.src, fName, fBadge, bImg.src, bName, bBadge);
+  });
 });
 </script>
 </body>
